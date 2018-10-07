@@ -1,18 +1,32 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\ViewXray;
 
-use View;
+use View as ViewFacade;
+use Illuminate\View\View;
+use File;
 
+/**
+ * Class Xray
+ *
+ * @package BeyondCode\ViewXray
+ */
 class Xray
 {
+    /** @var View $baseView */
     protected $baseView;
 
+    /** @var int $viewId */
     protected $viewId = 0;
 
+    /**
+     * Boot the Xray class
+     */
     public function boot()
     {
-        View::composer('*', function ($view) {
+        ViewFacade::composer('*', function (View $view) {
             if (is_null($this->baseView)) {
                 $this->baseView = clone $view;
             }
@@ -23,41 +37,75 @@ class Xray
         });
     }
 
-    public function isEnabled()
+    /**
+     * @return bool
+     */
+    public function isEnabled() : bool
     {
-        return config('xray.enabled');
+        return (boolean)config('xray.enabled');
     }
 
-    public function modifyView($view)
+    /**
+     * @param $view
+     */
+    public function modifyView(View $view)
     {
         $viewContent = file_get_contents($view->getPath());
 
-        $file = tempnam(sys_get_temp_dir(), $view->name());
+        $file = tempnam(sys_get_temp_dir(), $view->getName());
 
-        $re = '/(@section\(([^))]+)\)+)(.*?)(@endsection|@show|@overwrite)/s';
-        $viewContent = preg_replace_callback($re, function ($matches) use ($view) {
-            ++$this->viewId;
-            $sectionName = str_replace(["'", '"'], '', $matches[2]);
-            return $matches[1] . '<!--XRAY START ' . $this->viewId . ' ' . $view->getName() . '@section:' . $sectionName . ' ' . $view->getPath() . '-->' . $matches[3] . '<!--XRAY END ' . $this->viewId . '-->' . $matches[4];
-        }, $viewContent);
+        $viewContent = preg_replace_callback(
+            '/(@section\(([^))]+)\)+)(.*?)(@endsection|@show|@overwrite|@append)/s',
+            function (array $matches) use ($view) {
+                ++$this->viewId;
 
-        $viewContent = '<!--XRAY START ' . $this->viewId . ' ' . $view->getName() . ' ' . $view->getPath() . '-->' . PHP_EOL . $viewContent . PHP_EOL . '<!--XRAY END ' . $this->viewId . '-->';
+                $sectionName = str_replace(["'", '"'], '', $matches[2]);
 
-        file_put_contents($file, $viewContent);
+                return sprintf(
+                    '%1$s<!--XRAY START %6$s %4$s@section:%7$s %5$s-->%2$s<!--XRAY END %6$s-->%3$s',
+                    $matches[1],
+                    $matches[3],
+                    $matches[4],
+                    $view->getName(),
+                    $view->getPath(),
+                    $this->viewId,
+                    $sectionName
+                );
+            },
+            $viewContent
+        );
+
+        $viewContent = sprintf(
+            '<!--XRAY START %1$s %2$s %3$s-->%4$s%5$s%4$s<!--XRAY END %1$s-->',
+            $this->viewId,
+            $view->getName(),
+            $view->getPath(),
+            PHP_EOL,
+            $viewContent
+        );
+
+        file_put_contents($file, $viewContent, LOCK_EX);
 
         $view->setPath($file);
 
         ++$this->viewId;
     }
 
-    public function getBaseView()
+    /**
+     * @return View
+     */
+    public function getBaseView() : View
     {
         return $this->baseView;
     }
 
+    /**
+     * @param string $viewName
+     *
+     * @return bool
+     */
     protected function isEnabledForView(string $viewName): bool
     {
-        return ! in_array($viewName, config('xray.excluded', []));
+        return !in_array($viewName, config('xray.excluded', []), true);
     }
-
 }

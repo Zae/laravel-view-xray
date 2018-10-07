@@ -1,11 +1,18 @@
 <?php
 
+declare(strict_types=1);
+
 namespace BeyondCode\ViewXray;
 
 use View;
 use Illuminate\Contracts\Http\Kernel;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class ViewXrayServiceProvider
+ *
+ * @package BeyondCode\ViewXray
+ */
 class ViewXrayServiceProvider extends ServiceProvider
 {
     /**
@@ -41,6 +48,7 @@ class ViewXrayServiceProvider extends ServiceProvider
      */
     protected function registerMiddleware($middleware)
     {
+        /** @var Kernel $kernel */
         $kernel = $this->app[Kernel::class];
         $kernel->pushMiddleware($middleware);
     }

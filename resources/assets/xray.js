@@ -9,28 +9,26 @@ var hasProp = {}.hasOwnProperty,
   }
   MAX_ZINDEX = 2147483647;
   Xray.init = (function() {
-    var is_mac;
     if (Xray.initialized) {
       return;
     }
     Xray.initialized = true;
-    is_mac = navigator.platform.toUpperCase().indexOf('MAC') !== -1;
     $(document).keydown(function(e) {
-      if ((is_mac && e.metaKey || !is_mac && e.ctrlKey) && e.shiftKey && e.keyCode === 88) {
+      if (e.ctrlKey && e.shiftKey && e.which === 88) {
         if (Xray.isShowing) {
           Xray.hide();
         } else {
           Xray.show();
         }
       }
-      if (Xray.isShowing && e.keyCode === 27) {
+      if (Xray.isShowing && e.which === 27) {
         return Xray.hide();
       }
     });
     return $(function() {
       new Xray.Overlay;
       Xray.findTemplates();
-      return typeof console !== "undefined" && console !== null ? console.log("Ready to Xray. Press " + (is_mac ? 'cmd+shift+x' : 'ctrl+shift+x') + " to scan your UI.") : void 0;
+      return typeof console !== "undefined" && console !== null ? console.log("Ready to Xray. Press ctrl+shift+x  to scan your UI.") : void 0;
     });
   })();
   Xray.specimens = function() {
