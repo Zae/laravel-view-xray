@@ -10,6 +10,7 @@ use Illuminate\Http\Response;
 use ReflectionFunction;
 use ReflectionMethod;
 use Illuminate\Routing\Route;
+use Symfony\Component\HttpFoundation\Response as SymfonyResponse;
 
 /**
  * Class XrayMiddleware
@@ -48,7 +49,7 @@ class XrayMiddleware
 
         $this->xray->boot();
 
-        /** @var \Illuminate\Http\Response $response */
+        /** @var SymfonyResponse $response */
         $response = $next($request);
 
         if ($response->isRedirection() || $this->notXRayable($request, $response)) {
@@ -69,7 +70,7 @@ class XrayMiddleware
      *
      * @return bool
      */
-    public function notXRayable(Request $request, Response $response) : bool
+    public function notXRayable(Request $request, SymfonyResponse $response) : bool
     {
         return (
             $response->headers->has('Content-Type') &&

@@ -1,12 +1,12 @@
-<?php return '<!--XRAY START 1 example /home/travis/build/beyondcode/laravel-view-xray/tests/views/example.blade.php-->
+<?php return '<!--XRAY START 1 example /var/www/html/tests/views/example.blade.php-->
 
 
 <!--XRAY END 1-->
-<!--XRAY START 3 layout /home/travis/build/beyondcode/laravel-view-xray/tests/views/layout.blade.php-->
+<!--XRAY START 3 layout /var/www/html/tests/views/layout.blade.php-->
 <html>
-<!--XRAY START 1 example@section:content /home/travis/build/beyondcode/laravel-view-xray/tests/views/example.blade.php-->
+<!--XRAY START 1 example@section:content /var/www/html/tests/views/example.blade.php-->
     Some example content
-    <!--XRAY START 2 include /home/travis/build/beyondcode/laravel-view-xray/tests/views/include.blade.php-->
+    <!--XRAY START 2 include /var/www/html/tests/views/include.blade.php-->
 This is an included file.
 <!--XRAY END 2-->    Some example content
 <!--XRAY END 1--></html>
@@ -21,28 +21,26 @@ This is an included file.
   }
   MAX_ZINDEX = 2147483647;
   Xray.init = (function() {
-    var is_mac;
     if (Xray.initialized) {
       return;
     }
     Xray.initialized = true;
-    is_mac = navigator.platform.toUpperCase().indexOf(\'MAC\') !== -1;
     $(document).keydown(function(e) {
-      if ((is_mac && e.metaKey || !is_mac && e.ctrlKey) && e.shiftKey && e.keyCode === 88) {
+      if (e.ctrlKey && e.shiftKey && e.which === 88) {
         if (Xray.isShowing) {
           Xray.hide();
         } else {
           Xray.show();
         }
       }
-      if (Xray.isShowing && e.keyCode === 27) {
+      if (Xray.isShowing && e.which === 27) {
         return Xray.hide();
       }
     });
     return $(function() {
       new Xray.Overlay;
       Xray.findTemplates();
-      return typeof console !== "undefined" && console !== null ? console.log("Ready to Xray. Press " + (is_mac ? \'cmd+shift+x\' : \'ctrl+shift+x\') + " to scan your UI.") : void 0;
+      return typeof console !== "undefined" && console !== null ? console.log("Ready to Xray. Press ctrl+shift+x  to scan your UI.") : void 0;
     });
   })();
   Xray.specimens = function() {
@@ -615,7 +613,7 @@ This is an included file.
 .xray-icon-github:before { content: \'\\f056\'; } /* \'\' */
 .xray-icon-columns:before { content: \'\\f0db\'; } /* \'\' */
 .xray-icon-doc:before { content: \'📄\'; } /* \'\\1f4c4\' */
-.xray-icon-search:before { content: \'🔍\'; } /* \'\\1f50d\' */</style><!--XRAY START 4 xray::xray /home/travis/build/beyondcode/laravel-view-xray/src/../resources/views/xray.blade.php-->
+.xray-icon-search:before { content: \'🔍\'; } /* \'\\1f50d\' */</style><!--XRAY START 4 xray::xray /var/www/html/src/../resources/views/xray.blade.php-->
 <div id="xray-bar" style="display:none">
     <div id="xray-bar-controller-path">
         <span class="xray-bar-btn xray-bar-controller xray-icon-flash">
@@ -624,7 +622,7 @@ This is an included file.
         </span>
         <span class="xray-bar-btn xray-bar-layout xray-icon-columns">
             <b></b>
-            /home/travis/build/beyondcode/laravel-view-xray/tests/views/example.blade.php
+            /var/www/html/tests/views/example.blade.php
         </span>
         <span class="xray-bar-btn xray-bar-view xray-icon-doc">
             example
