@@ -1,6 +1,6 @@
 <?php
 
-namespace BeyondCode\ViewXray\Tests;
+namespace Zae\ViewXray\Tests;
 
 use Route;
 use Spatie\Snapshots\MatchesSnapshots;

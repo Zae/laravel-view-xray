@@ -2,16 +2,21 @@
     "name": "zae/laravel-view-xray",
     "description": "Take a look into your Laravel views.",
     "keywords": [
-        "beyondcode",
         "laravel-view-xray"
     ],
-    "homepage": "https://github.com/beyondcode/laravel-view-xray",
+    "homepage": "https://github.com/zae/laravel-view-xray",
     "license": "MIT",
     "authors": [
         {
             "name": "Marcel Pociot",
             "email": "marcel@beyondco.de",
             "homepage": "https://beyondcode.de",
+            "role": "Developer"
+        },
+        {
+            "name": "Ezra Pool",
+            "email": "ezra@tsdme.nl",
+            "homepage": "https://tsdme.nl",
             "role": "Developer"
         }
     ],
@@ -26,18 +31,17 @@
     },
     "autoload": {
         "psr-4": {
-            "BeyondCode\\ViewXray\\": "src"
+            "Zae\\ViewXray\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "BeyondCode\\ViewXray\\Tests\\": "tests"
+            "Zae\\ViewXray\\Tests\\": "tests"
         }
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
         "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
     },
     "config": {
         "sort-packages": true
@@ -45,7 +49,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "BeyondCode\\ViewXray\\ViewXrayServiceProvider"
+                "Zae\\ViewXray\\ViewXrayServiceProvider"
             ]
         }
     }

@@ -1,9 +1,9 @@
 # Xray - Take a look into your Laravel views
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/beyondcode/laravel-view-xray.svg?style=flat-square)](https://packagist.org/packages/beyondcode/laravel-view-xray)
-[![Build Status](https://img.shields.io/travis/beyondcode/laravel-view-xray/master.svg?style=flat-square)](https://travis-ci.org/beyondcode/laravel-view-xray)
-[![Quality Score](https://img.shields.io/scrutinizer/g/beyondcode/laravel-view-xray.svg?style=flat-square)](https://scrutinizer-ci.com/g/beyondcode/laravel-view-xray)
-[![Total Downloads](https://img.shields.io/packagist/dt/beyondcode/laravel-view-xray.svg?style=flat-square)](https://packagist.org/packages/beyondcode/laravel-view-xray)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/zae/laravel-view-xray.svg?style=flat-square)](https://packagist.org/packages/zae/laravel-view-xray)
+[![Build Status](https://img.shields.io/travis/zae/laravel-view-xray/master.svg?style=flat-square)](https://travis-ci.org/zae/laravel-view-xray)
+[![Quality Score](https://img.shields.io/scrutinizer/g/zae/laravel-view-xray.svg?style=flat-square)](https://scrutinizer-ci.com/g/zae/laravel-view-xray)
+[![Total Downloads](https://img.shields.io/packagist/dt/zae/laravel-view-xray.svg?style=flat-square)](https://packagist.org/packages/zae/laravel-view-xray)
 
 When your Laravel project grows, so do the Laravel views. Sometimes it might be hard to figure out, which part of the output HTML was rendered using which template.
 With this package, you can take a peek into your Laravel views and find out which template is responsible for which part of the output HTML.
@@ -15,7 +15,7 @@ With this package, you can take a peek into your Laravel views and find out whic
 You can install the package via composer:
 
 ```bash
-composer require beyondcode/laravel-view-xray --dev
+composer require zae/laravel-view-xray --dev
 ```
 
 The package is enabled by default - so all you need to do is visit your application in the browser and hit the Xray shortcut.

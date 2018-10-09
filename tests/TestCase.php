@@ -1,9 +1,9 @@
 <?php
 
-namespace BeyondCode\ViewXray\Tests;
+namespace Zae\ViewXray\Tests;
 
 use View;
-use BeyondCode\ViewXray\ViewXrayServiceProvider;
+use Zae\ViewXray\ViewXrayServiceProvider;
 
 abstract class TestCase extends \Orchestra\Testbench\TestCase
 {

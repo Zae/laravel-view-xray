@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace BeyondCode\ViewXray;
+namespace Zae\ViewXray;
 
 use View;
 use Illuminate\Contracts\Http\Kernel;
